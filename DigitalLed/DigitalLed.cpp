@@ -14,7 +14,7 @@ DigitalLed::DigitalLed(int ledPinNumber, unsigned long blinkInterval) {
   m_activeTimer = 0L;
   m_isActive = false;
 
-  pinMode(ledPinNumber, m_ledPinMode);
+  pinMode(m_ledPinNumber, m_ledPinMode);
 }
     
 int DigitalLed::getLedPinNumber() const {
