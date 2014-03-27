@@ -4,7 +4,7 @@
  * activities on the Arduino Uno.
  * 
  * @author Janette H. Griggs
- * @version 1.1 03/22/14
+ * @version 1.1 03/26/14
  */
 
 #ifndef DigitalLed_h

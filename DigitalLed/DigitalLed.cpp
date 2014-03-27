@@ -1,7 +1,7 @@
 // Function definitions for the DigitalLed class. 
 
 // @author Janette H. Griggs
-// @version 1.1 03/22/14
+// @version 1.1 03/26/14
 
 #include "DigitalLed.h"
 
