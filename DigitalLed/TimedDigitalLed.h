@@ -5,7 +5,7 @@
  * can be specified for the led.
  * 
  * @author Janette H. Griggs
- * @version 1.0 03/22/14
+ * @version 1.1 03/22/14
  */
 
 #ifndef TimedDigitalLed_h

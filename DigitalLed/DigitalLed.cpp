@@ -1,7 +1,7 @@
 // Function definitions for the DigitalLed class. 
 
 // @author Janette H. Griggs
-// @version 1.0 03/22/14
+// @version 1.1 03/22/14
 
 #include "DigitalLed.h"
 
@@ -80,7 +80,7 @@ void DigitalLed::turnOffLed() {
 
 void DigitalLed::blinkLed(unsigned long deltaMillis) {
   m_blinkTimer += deltaMillis;
-  if (m_blinkTimer > m_blinkInterval) {
+  if (m_blinkTimer >= m_blinkInterval) {
     switchLedPinState();
     m_blinkTimer = 0L;
   }
