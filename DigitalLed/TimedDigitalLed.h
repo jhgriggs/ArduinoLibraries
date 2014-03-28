@@ -1,11 +1,17 @@
 /**
  * TimedDigitalLed class.
- * This is a derived class from DigitalLed that handles led light 
- * digital output activities on the Arduino Uno. An active duration
- * can be specified for the led.
+ *
+ * This is a derived class from DigitalLed that handles LED light 
+ * digital output on the Arduino Uno. Instead of relying on delay() 
+ * to control activites such as blinking, it uses a timer based on
+ * the change in millis() between the loop() function calls. LED 
+ * activity stops after reaching the specified active duration.
  * 
+ * See the project TrafficLights in the jhgriggs/ArduinoProjects 
+ * repository for an example of this class implementation.
+ *
  * @author Janette H. Griggs
- * @version 1.1 03/26/14
+ * @version 1.1 03/28/14
  */
 
 #ifndef TimedDigitalLed_h
