@@ -11,7 +11,7 @@
  * repository for an example of this class implementation.
  *
  * @author Janette H. Griggs
- * @version 1.1 03/28/14
+ * @version 1.2 03/29/14
  */
 
 #ifndef TimedDigitalLed_h
@@ -34,11 +34,8 @@ class TimedDigitalLed : public DigitalLed {
      * @param ledPinNumber The Arduino pin number for led output. 
      * @param activeDuration The amount of time (in ms) for which the 
      * led should be active.
-     * @param blinkInterval The interval (in ms) between on (HIGH) and 
-     * (LOW) off pin states. Optional.
      */
-    TimedDigitalLed(int ledPinNumber, unsigned long activeDuration, 
-      unsigned long blinkInterval = 0L);
+    TimedDigitalLed(int ledPinNumber, unsigned long activeDuration);
 
     /**
      * Returns the specified amount of time (in ms) that the led should 
@@ -49,10 +46,10 @@ class TimedDigitalLed : public DigitalLed {
 
     /**
      * Turns on the led and sets it to an active state.
-     * Blinks automatically using a timer based on the specified 
-     * interval.
      * After the specifed active duration has been reached, the led
      * is turned off and becomes inactive.
+     * NOTE: Call this function during each loop to maintain LED
+     * activity.
      * @param deltaMillis The change in time (ms) from the previous loop. 
      */
     virtual void activateLed(unsigned long deltaMillis);

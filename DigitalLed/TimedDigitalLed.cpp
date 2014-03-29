@@ -1,13 +1,13 @@
 // Function definitions for the TimedDigitalLed class.
  
 // @author Janette H. Griggs
-// @version 1.1 03/26/14
+// @version 1.2 03/29/14
 
 
 #include "TimedDigitalLed.h"
 
-TimedDigitalLed::TimedDigitalLed(int ledPinNumber, unsigned long activeDuration, 
-  unsigned long blinkInterval) : DigitalLed(ledPinNumber, blinkInterval) {
+TimedDigitalLed::TimedDigitalLed(int ledPinNumber, 
+  unsigned long activeDuration) : DigitalLed(ledPinNumber) {
     m_activeDuration = activeDuration;
 }
 
@@ -24,8 +24,6 @@ void TimedDigitalLed::activateLed(unsigned long deltaMillis) {
     if (m_activeTimer >= m_activeDuration) {
       turnOffLed();
       m_isActive = false;
-    } else if (m_blinkInterval != 0L) {
-      blinkLed(deltaMillis);
     }
   }
 }

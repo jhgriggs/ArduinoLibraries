@@ -4,9 +4,12 @@ getLedPinMode	KEYWORD2
 getLedPinState	KEYWORD2
 getBlinkInterval	KEYWORD2
 getBlinkTimer	KEYWORD2
+getIsBlinkingState	KEYWORD2
 getActiveTimer	KEYWORD2
 getIsActiveState	KEYWORD2
 activateLed	KEYWORD2
+blinkLed	KEYWORD2
+stopBlinkingLed	KEYWORD2
 resetLed	KEYWORD2
 TimedDigitalLed	KEYWORD1
 getActiveDuration	KEYWORD2
