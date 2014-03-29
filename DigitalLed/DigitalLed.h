@@ -101,7 +101,7 @@ class DigitalLed {
     /**
      * Stops blinking the LED. Turns on the LED.
      * The blink timer is set to 0 and the blinking state
-     * is set to inactive.
+     * is set to inactive. 
      */
     void stopBlinkingLed();
 
