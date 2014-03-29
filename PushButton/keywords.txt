@@ -1,0 +1,11 @@
+PushButton	KEYWORD1
+getButtonPinNumber	KEYWORD2
+getButtonPinMode	KEYWORD2
+getActiveValue	KEYWORD2
+getButtonPushState	KEYWORD2
+getCurrentReading	KEYWORD2
+getPreviousReading	KEYWORD2
+getDebounceDelay	KEYWORD2
+getDebounceTimer	KEYWORD2
+detectPush	KEYWORD2
+ResistorMode	KEYWORD1
