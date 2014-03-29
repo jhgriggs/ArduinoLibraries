@@ -10,7 +10,7 @@
  * repository for an example of this class implementation.
  * 
  * @author Janette H. Griggs
- * @version 1.2 03/29/14
+ * @version 1.3 03/29/14
  */
 
 #ifndef DigitalLed_h
@@ -82,28 +82,23 @@ class DigitalLed {
     bool getIsActiveState() const;
      
     /**
-     * Turns on the LED if it is not active and sets it to an active
-     * state. The active timer is incremented during each call.
-     * NOTE: Call this function during each loop to maintain LED
-     * activity.
+     * Turns on the LED and stops any blinking activity.
+     * NOTE: Call this function during each loop to maintain steady 
+     * LED activity.
      * @param deltaMillis The change in time (ms) from the previous loop. 
      */
-    virtual void activateLed(unsigned long deltaMillis);
+    virtual void runSteadyLed(unsigned long deltaMillis);
 
     /**
      * Blinks the LED using a timer based on the specified interval.
+     * NOTE: Call this function during each loop to maintain blinking 
+     * LED activity.
      * @param deltaMillis The change in time (ms) from the previous loop.
      * @param blinkInterval The interval (in ms) between on (HIGH) 
      * and off (LOW) pin states.
      */
-    void blinkLed(unsigned long deltaMillis, unsigned long blinkInterval);
-
-    /**
-     * Stops blinking the LED. Turns on the LED.
-     * The blink timer is set to 0 and the blinking state
-     * is set to inactive. 
-     */
-    void stopBlinkingLed();
+    virtual void runBlinkingLed(unsigned long deltaMillis, 
+                                unsigned long blinkInterval);
 
     /**
      * Turns off the LED and sets it to an inactive state.
@@ -125,6 +120,19 @@ class DigitalLed {
     unsigned long m_activeTimer; /**< time (ms) since LED was active */
     bool m_isActive; /**< active state of LED */
     
+    /**
+     * Stops blinking the LED. The blink timer is set to 0 and the 
+     * blinking state is set to inactive.
+     */
+    void stopBlinkingLed();
+
+    /**
+     * Activates the LED. Increments the active
+     * timer during each loop.
+     */
+    virtual void activateLed(unsigned long deltaMillis);
+
+
     /**
      * Turns on the LED by switching the pin state from LOW to HIGH.
      */

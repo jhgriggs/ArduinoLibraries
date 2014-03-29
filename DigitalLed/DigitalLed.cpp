@@ -1,21 +1,24 @@
 // Function definitions for the DigitalLed class. 
 
 // @author Janette H. Griggs
-// @version 1.2 03/29/14
+// @version 1.3 03/29/14
 
 #include "DigitalLed.h"
 
 DigitalLed::DigitalLed(int ledPinNumber) {
   m_ledPinNumber = ledPinNumber;
   m_ledPinMode = OUTPUT;
-  m_ledPinState = LOW;
   m_blinkInterval = 0L;
   m_blinkTimer = 0L;
   m_isBlinking = false;
   m_activeTimer = 0L;
   m_isActive = false;
 
+  // Set pin mode to output.
   pinMode(m_ledPinNumber, m_ledPinMode);
+
+  // Set the pin state to off (LOW).
+  turnOffLed();
 }
     
 int DigitalLed::getLedPinNumber() const {
@@ -50,21 +53,22 @@ bool DigitalLed::getIsActiveState() const {
   return m_isActive;
 }
 
-void DigitalLed::activateLed(unsigned long deltaMillis) {
-  if (!m_isActive) {
-    turnOnLed();
-    m_isActive = true;
-  } else {
-    m_activeTimer += deltaMillis;
-  }
+void DigitalLed::runSteadyLed(unsigned long deltaMillis) {
+  stopBlinkingLed();
+  activateLed(deltaMillis);
+  turnOnLed();
 }
 
-void DigitalLed::blinkLed(unsigned long deltaMillis,
+void DigitalLed::runBlinkingLed(unsigned long deltaMillis,
                           unsigned long blinkInterval) {
   m_blinkInterval = blinkInterval;
 
+  activateLed(deltaMillis);
+
+  // Blink the LED.
   if (!m_isBlinking) {
     m_isBlinking = true;
+    turnOnLed();
   } else {    
     m_blinkTimer += deltaMillis;
     if (m_blinkTimer >= m_blinkInterval) {
@@ -72,12 +76,6 @@ void DigitalLed::blinkLed(unsigned long deltaMillis,
         m_blinkTimer = 0L;
     }
   }
-}
-
-void DigitalLed::stopBlinkingLed() {
-  turnOnLed();
-  m_blinkTimer = 0L;
-  m_isBlinking = false;
 }
 
 void DigitalLed::resetLed() {
@@ -89,6 +87,19 @@ void DigitalLed::resetLed() {
     
 DigitalLed::~DigitalLed() {
 
+}
+
+void DigitalLed::stopBlinkingLed() {
+  m_blinkTimer = 0L;
+  m_isBlinking = false;
+}
+
+void DigitalLed::activateLed(unsigned long deltaMillis) {
+  if (!m_isActive) { 
+    m_isActive = true;
+  } else {
+    m_activeTimer += deltaMillis;
+  }
 }
 
 void DigitalLed::turnOnLed() {
