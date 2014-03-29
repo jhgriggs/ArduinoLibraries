@@ -1,7 +1,7 @@
 // Function definitions for the PushButton class. 
 
 // @author Janette H. Griggs
-// @version 1.0 03/28/14
+// @version 1.1 03/29/14
 
 #include "PushButton.h"
 
@@ -61,20 +61,25 @@ bool PushButton::detectPush(unsigned long deltaMillis) {
 
   m_currentReading = digitalRead(m_buttonPinNumber);
 
+  // If the current reading is not equal to the button push
+  // state, debounce to verify that the button push state has 
+  // actually changed.
+  // If the button push state has actually changed and is equal
+  // to the active "ON" value, the button is considered to be
+  // pushed.
   if (m_currentReading != m_buttonPushState) {
     if (m_currentReading != m_previousReading) {
       m_debounceTimer = 0L;
-    } else if (m_currentReading == m_previousReading 
-      && m_debounceTimer >= m_debounceDelay) {
+    } else if (m_debounceTimer >= m_debounceDelay) {
       m_buttonPushState = m_currentReading;
 
       if (m_buttonPushState == m_activeValue) {
         isPushed = true;
       }
-    } else if (m_currentReading == m_previousReading) {
+    } else {
       m_debounceTimer += deltaMillis;
     }
-  } else if (m_currentReading == m_buttonPushState) {
+  } else {
     m_debounceTimer = 0L;
   }
 

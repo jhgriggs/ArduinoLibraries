@@ -11,7 +11,7 @@
  * this class implementation.
  *
  * @author Janette H. Griggs
- * @version 1.0 03/28/14
+ * @version 1.1 03/29/14
  */
 
 #ifndef PushButton_h
