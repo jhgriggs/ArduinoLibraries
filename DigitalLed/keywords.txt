@@ -10,6 +10,4 @@ getIsActiveState	KEYWORD2
 runSteadyLed	KEYWORD2
 runBlinkingLed	KEYWORD2
 resetLed	KEYWORD2
-TimedDigitalLed	KEYWORD1
-getActiveDuration	KEYWORD2
 

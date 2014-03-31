@@ -6,8 +6,9 @@
  * activites such as blinking, it uses a timer based on the 
  * change in millis() between the loop() function calls.
  *
- * See the project TrafficLights in the jhgriggs/ArduinoProjects 
- * repository for an example of this class implementation.
+ * See the project TrafficLightsButton in the  
+ * jhgriggs/ArduinoProjects repository for an example of this 
+ * class implementation.
  * 
  * @author Janette H. Griggs
  * @version 1.3 03/29/14
@@ -87,7 +88,7 @@ class DigitalLed {
      * LED activity.
      * @param deltaMillis The change in time (ms) from the previous loop. 
      */
-    virtual void runSteadyLed(unsigned long deltaMillis);
+    void runSteadyLed(unsigned long deltaMillis);
 
     /**
      * Blinks the LED using a timer based on the specified interval.
@@ -97,7 +98,7 @@ class DigitalLed {
      * @param blinkInterval The interval (in ms) between on (HIGH) 
      * and off (LOW) pin states.
      */
-    virtual void runBlinkingLed(unsigned long deltaMillis, 
+    void runBlinkingLed(unsigned long deltaMillis, 
                                 unsigned long blinkInterval);
 
     /**
@@ -112,7 +113,10 @@ class DigitalLed {
      * Destructor.
      */
     ~DigitalLed();
-  protected:
+  private:
+    int m_ledPinNumber; /**< LED pin number */
+    int m_ledPinMode; /**< LED pin mode */
+    int m_ledPinState; /**< LED pin state */
     unsigned long m_blinkInterval; /**< interval (ms) between on (HIGH)
                                     and off (LOW) pin states */
     unsigned long m_blinkTimer; /**< time (ms) since last pin state */
@@ -130,7 +134,7 @@ class DigitalLed {
      * Activates the LED. Increments the active
      * timer during each loop.
      */
-    virtual void activateLed(unsigned long deltaMillis);
+    void activateLed(unsigned long deltaMillis);
 
 
     /**
@@ -147,10 +151,6 @@ class DigitalLed {
      * Toggles the pin state from LOW to HIGH or from HIGH to LOW.
      */
     void switchLedPinState();
-  private:
-    int m_ledPinNumber; /**< LED pin number */
-    int m_ledPinMode; /**< LED pin mode */
-    int m_ledPinState; /**< LED pin state */
 };
 
 #endif
