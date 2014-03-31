@@ -1,23 +1,17 @@
 // Function definitions for the DigitalLed class. 
 
 // @author Janette H. Griggs
-// @version 1.3 03/29/14
+// @version 1.4 03/31/14
 
 #include "DigitalLed.h"
 
 DigitalLed::DigitalLed(int ledPinNumber) {
-  m_ledPinNumber = ledPinNumber;
-  m_ledPinMode = OUTPUT;
-  m_blinkInterval = 0L;
   m_blinkTimer = 0L;
   m_isBlinking = false;
   m_activeTimer = 0L;
   m_isActive = false;
-
-  // Set pin mode to output.
-  pinMode(m_ledPinNumber, m_ledPinMode);
-
-  // Set the pin state to off (LOW).
+  
+  setLedPinNumber(ledPinNumber);
   turnOffLed();
 }
     
@@ -25,16 +19,8 @@ int DigitalLed::getLedPinNumber() const {
   return m_ledPinNumber;
 }
 
-int DigitalLed::getLedPinMode() const {
-  return m_ledPinMode;
-}
-
 int DigitalLed::getLedPinState() const {
   return m_ledPinState;
-}
-
-unsigned long DigitalLed::getBlinkInterval() const {
-  return m_blinkInterval;
 }
 
 unsigned long DigitalLed::getBlinkTimer() const {
@@ -53,6 +39,13 @@ bool DigitalLed::getIsActiveState() const {
   return m_isActive;
 }
 
+void DigitalLed::setLedPinNumber(int ledPinNumber) {
+  m_ledPinNumber = ledPinNumber;
+
+  // Set pin mode to output.
+  pinMode(m_ledPinNumber, OUTPUT);
+}
+
 void DigitalLed::runSteadyLed(unsigned long deltaMillis) {
   stopBlinkingLed();
   activateLed(deltaMillis);
@@ -61,7 +54,6 @@ void DigitalLed::runSteadyLed(unsigned long deltaMillis) {
 
 void DigitalLed::runBlinkingLed(unsigned long deltaMillis,
                           unsigned long blinkInterval) {
-  m_blinkInterval = blinkInterval;
 
   activateLed(deltaMillis);
 
@@ -71,7 +63,7 @@ void DigitalLed::runBlinkingLed(unsigned long deltaMillis,
     turnOnLed();
   } else {    
     m_blinkTimer += deltaMillis;
-    if (m_blinkTimer >= m_blinkInterval) {
+    if (m_blinkTimer >= blinkInterval) {
         switchLedPinState();
         m_blinkTimer = 0L;
     }

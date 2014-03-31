@@ -6,12 +6,11 @@
  * activites such as blinking, it uses a timer based on the 
  * change in millis() between the loop() function calls.
  *
- * See the project TrafficLightsButton in the  
- * jhgriggs/ArduinoProjects repository for an example of this 
- * class implementation.
+ * See the project TrafficLights in the jhgriggs/ArduinoProjects  
+ * repository for an example of this class implementation.
  * 
  * @author Janette H. Griggs
- * @version 1.3 03/29/14
+ * @version 1.4 03/31/14
  */
 
 #ifndef DigitalLed_h
@@ -40,23 +39,10 @@ class DigitalLed {
     int getLedPinNumber() const;
 
     /**
-     * Returns the LED pin mode.
-     * @return The LED pin mode.
-     */
-    int getLedPinMode() const;
-
-    /**
      * Returns the LED pin state.
      * @return The LED pin state.
      */
     int getLedPinState() const;
-
-    /**
-     * Returns the specified interval (in ms) between the   
-     * on (HIGH) and off (LOW) pin states.
-     * @return The blink interval.
-     */
-    unsigned long getBlinkInterval() const;
 
     /**
      * Returns the time (in ms) since the last pin state change.
@@ -81,7 +67,13 @@ class DigitalLed {
      * @return The active state.
      */
     bool getIsActiveState() const;
-     
+    
+    /**
+     * Sets the LED pin number.
+     * @param The LED pin number.
+     */
+    void setLedPinNumber(int ledPinNumber); 
+
     /**
      * Turns on the LED and stops any blinking activity.
      * NOTE: Call this function during each loop to maintain steady 
@@ -99,7 +91,7 @@ class DigitalLed {
      * and off (LOW) pin states.
      */
     void runBlinkingLed(unsigned long deltaMillis, 
-                                unsigned long blinkInterval);
+                        unsigned long blinkInterval);
 
     /**
      * Turns off the LED and sets it to an inactive state.
@@ -115,10 +107,7 @@ class DigitalLed {
     ~DigitalLed();
   private:
     int m_ledPinNumber; /**< LED pin number */
-    int m_ledPinMode; /**< LED pin mode */
     int m_ledPinState; /**< LED pin state */
-    unsigned long m_blinkInterval; /**< interval (ms) between on (HIGH)
-                                    and off (LOW) pin states */
     unsigned long m_blinkTimer; /**< time (ms) since last pin state */
     bool m_isBlinking; /**< blinking state of LED */
     unsigned long m_activeTimer; /**< time (ms) since LED was active */
@@ -135,7 +124,6 @@ class DigitalLed {
      * timer during each loop.
      */
     void activateLed(unsigned long deltaMillis);
-
 
     /**
      * Turns on the LED by switching the pin state from LOW to HIGH.

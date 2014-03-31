@@ -1,12 +1,11 @@
 DigitalLed	KEYWORD1
 getLedPinNumber	KEYWORD2
-getLedPinMode	KEYWORD2
 getLedPinState	KEYWORD2
-getBlinkInterval	KEYWORD2
 getBlinkTimer	KEYWORD2
 getIsBlinkingState	KEYWORD2
 getActiveTimer	KEYWORD2
 getIsActiveState	KEYWORD2
+setLedPinNumber	KEYWORD2
 runSteadyLed	KEYWORD2
 runBlinkingLed	KEYWORD2
 resetLed	KEYWORD2
