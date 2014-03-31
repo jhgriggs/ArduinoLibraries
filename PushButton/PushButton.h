@@ -6,12 +6,11 @@
  * in millis() between the loop() function calls, is used
  * to debounce the input.
  *
- * See the project TrafficLightsButton in the
- * jhgriggs/ArduinoProjects repository for an example of 
- * this class implementation.
+ * See the project TrafficLights in the jhgriggs/ArduinoProjects
+ * repository for an example of this class implementation.
  *
  * @author Janette H. Griggs
- * @version 1.1 03/29/14
+ * @version 1.2 03/31/14
  */
 
 #ifndef PushButton_h
@@ -34,22 +33,14 @@ class PushButton {
      * @param buttonPinNumber The Arduino pin number for button input.
      * @param resistorMode The resistor mode configuration used in the
      * circuit. This is one of the enum values: PULL_UP, PULL_DOWN.
-     * @param debounceDelay The delay time (ms) for debouncing input.
      */
-    PushButton(int buttonPinNumber, ResistorMode resistorMode, 
-                unsigned long debounceDelay);
+    PushButton(int buttonPinNumber, ResistorMode resistorMode);
 
     /**
      * Returns the push button pin number.
      * @return The push button pin number.
      */
     int getButtonPinNumber() const;
-
-    /**
-     * Returns the push button pin mode.
-     * @return The push button pin mode.
-     */
-    int getButtonPinMode() const;
 
     /**
      * Returns the push button pin state that would be read if 
@@ -80,13 +71,6 @@ class PushButton {
     int getPreviousReading() const;
 
     /**
-     * Returns the specified debounce delay period (in ms) to verify
-     * input.
-     * @return The debounce delay.
-     */
-    unsigned long getDebounceDelay() const;
-
-    /**
      * Returns the debounce timer (in ms).
      * @return The debounce timer.
      */
@@ -98,23 +82,21 @@ class PushButton {
      * pushed, a true value is returned only once during a continuous 
      * press.
      * @param deltaMillis The change in time (ms) from the previous loop.
+     * @param debounceDelay The delay time (ms) for debouncing input.
      * @return The truth value of whether a push is detected or not.
      */
-    bool detectPush(unsigned long deltaMillis);
+    bool detectPush(unsigned long deltaMillis, unsigned long debounceDelay);
 
     /**
      * Destructor.
      */
     ~PushButton();
-  protected:
-    int m_activeValue; /**< push button pin state value when pressed */
-    int m_buttonPushState; /**< push button push state */    
   private:
     int m_buttonPinNumber; /**< push button pin number */
-    int m_buttonPinMode; /**< push button pin mode */
+    int m_activeValue; /**< push button pin state value when pressed */
+    int m_buttonPushState; /**< push button push state */    
     int m_currentReading; /**< push button current reading */
     int m_previousReading; /**< push button previous reading */
-    unsigned long m_debounceDelay; /**< debounce delay (ms) */
     unsigned long m_debounceTimer; /**< debounce timer (ms) */
 };
 

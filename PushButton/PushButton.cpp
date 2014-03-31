@@ -1,13 +1,12 @@
 // Function definitions for the PushButton class. 
 
 // @author Janette H. Griggs
-// @version 1.1 03/29/14
+// @version 1.2 03/31/14
 
 #include "PushButton.h"
 
-PushButton::PushButton(int buttonPinNumber, ResistorMode resistorMode, unsigned long debounceDelay) {
+PushButton::PushButton(int buttonPinNumber, ResistorMode resistorMode) {
   m_buttonPinNumber = buttonPinNumber;
-  m_buttonPinMode = INPUT;
 
   if (resistorMode == PULL_UP) {
     m_activeValue = LOW;
@@ -18,18 +17,13 @@ PushButton::PushButton(int buttonPinNumber, ResistorMode resistorMode, unsigned 
   m_buttonPushState = !(m_activeValue);
   m_currentReading = m_buttonPushState;
   m_previousReading = m_currentReading;
-  m_debounceDelay = debounceDelay;
   m_debounceTimer = 0L;
 
-  pinMode(m_buttonPinNumber, m_buttonPinMode);
+  pinMode(m_buttonPinNumber, INPUT);
 }
 
 int PushButton::getButtonPinNumber() const {
   return m_buttonPinNumber;
-}
-
-int PushButton::getButtonPinMode() const {
-  return m_buttonPinMode;
 }
 
 int PushButton::getActiveValue() const {
@@ -48,15 +42,12 @@ int PushButton::getPreviousReading() const {
   return m_previousReading;
 }
 
-unsigned long PushButton::getDebounceDelay() const {
-  return m_debounceDelay;
-}
-
 unsigned long PushButton::getDebounceTimer() const {
   return m_debounceTimer;
 }
 
-bool PushButton::detectPush(unsigned long deltaMillis) {
+bool PushButton::detectPush(unsigned long deltaMillis, 
+                            unsigned long debounceDelay) {
   bool isPushed = false;
 
   m_currentReading = digitalRead(m_buttonPinNumber);
@@ -70,7 +61,7 @@ bool PushButton::detectPush(unsigned long deltaMillis) {
   if (m_currentReading != m_buttonPushState) {
     if (m_currentReading != m_previousReading) {
       m_debounceTimer = 0L;
-    } else if (m_debounceTimer >= m_debounceDelay) {
+    } else if (m_debounceTimer >= debounceDelay) {
       m_buttonPushState = m_currentReading;
 
       if (m_buttonPushState == m_activeValue) {
