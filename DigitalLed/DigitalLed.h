@@ -80,7 +80,7 @@ class DigitalLed {
      * LED activity.
      * @param deltaMillis The change in time (ms) from the previous loop. 
      */
-    void runSteadyLed(unsigned long deltaMillis);
+    void showSteadyLed(unsigned long deltaMillis);
 
     /**
      * Blinks the LED using a timer based on the specified interval.
@@ -90,7 +90,7 @@ class DigitalLed {
      * @param blinkInterval The interval (in ms) between on (HIGH) 
      * and off (LOW) pin states.
      */
-    void runBlinkingLed(unsigned long deltaMillis, 
+    void showBlinkingLed(unsigned long deltaMillis, 
                         unsigned long blinkInterval);
 
     /**

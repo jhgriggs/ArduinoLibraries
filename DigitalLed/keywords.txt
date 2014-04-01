@@ -6,7 +6,7 @@ getIsBlinkingState	KEYWORD2
 getActiveTimer	KEYWORD2
 getIsActiveState	KEYWORD2
 setLedPinNumber	KEYWORD2
-runSteadyLed	KEYWORD2
-runBlinkingLed	KEYWORD2
+showSteadyLed	KEYWORD2
+showBlinkingLed	KEYWORD2
 resetLed	KEYWORD2
 

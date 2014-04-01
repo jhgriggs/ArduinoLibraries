@@ -46,13 +46,13 @@ void DigitalLed::setLedPinNumber(int ledPinNumber) {
   pinMode(m_ledPinNumber, OUTPUT);
 }
 
-void DigitalLed::runSteadyLed(unsigned long deltaMillis) {
+void DigitalLed::showSteadyLed(unsigned long deltaMillis) {
   stopBlinkingLed();
   activateLed(deltaMillis);
   turnOnLed();
 }
 
-void DigitalLed::runBlinkingLed(unsigned long deltaMillis,
+void DigitalLed::showBlinkingLed(unsigned long deltaMillis,
                           unsigned long blinkInterval) {
 
   activateLed(deltaMillis);
