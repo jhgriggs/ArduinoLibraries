@@ -1,0 +1,17 @@
+AnalogLed	KEYWORD1
+getLedPinNumber	KEYWORD2
+getMinBrightness	KEYWORD2
+getMaxBrightness	KEYWORD2
+getCurrentBrightness	KEYWORD2
+getActiveTimer	KEYWORD2
+getIsActiveState	KEYWORD2
+getBrightnessChangeMode	KEYWORD2
+setLedPinNumber	KEYWORD2
+setMinBrightness	KEYWORD2
+setMaxBrightness	KEYWORD2
+showSteadyLed	KEYWORD2
+showBlinkingLed	KEYWORD2
+showFadingInLed	KEYWORD2
+showFadingOutLed	KEYWORD2
+showFadingInOutLed	KEYWORD2
+resetLed	KEYWORD2
