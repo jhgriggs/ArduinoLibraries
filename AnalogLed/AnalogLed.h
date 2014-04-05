@@ -9,7 +9,7 @@
  * loop.
  * 
  * @author Janette H. Griggs
- * @version 1.1 04/04/14
+ * @version 1.2 04/05/14
  */
 
 #ifndef AnalogLed_h
@@ -21,15 +21,15 @@
 #ifndef Arduino_h
   #include <Arduino.h>
 #endif
+#ifndef LedType_h
+  #include "LedType.h"
+#endif
+#ifndef BrightnessChangeMode_h
+  #include "BrightnessChangeMode.h"
+#endif
 
 class AnalogLed {
   public:
-    /**
-     * BrightnessChangeMode enum for the LED light.
-     */
-    enum BrightnessChangeMode {NONE, BLINK, FADE_IN, FADE_OUT,
-                                FADE_IN_OUT};
-
     /**
      * Constructor.
      * Configures the LED light for analog (PWM) output.
@@ -38,8 +38,12 @@ class AnalogLed {
      * at least 0.
      * @param maxBrightness The maximum brightness value, which is
      * at most 255.
+     * @param ledType The LED type, as in an RGB common cathode
+     * or common anode. 
      */
-    AnalogLed(int ledPinNumber, int minBrightness, int maxBrightness);
+    AnalogLed(int ledPinNumber, int minBrightness = 0, 
+              int maxBrightness = 255,
+              LedType ledType = COMMON_CATHODE);
 
     /**
      * Returns the LED pin number.
@@ -76,6 +80,13 @@ class AnalogLed {
      * @return The active state.
      */
     bool getIsActiveState() const;
+
+    /**
+     * Returns the LED type, whether a common cathode
+     * or a common anode.
+     * @return The LED type.
+     */
+    LedType getLedType() const;
 
     /**
      * Returns the brightness change mode of the LED.
@@ -178,6 +189,7 @@ class AnalogLed {
     float m_currentBrightness; /**< LED current brightness */
     unsigned long m_activeTimer; /**< time (ms) since LED was active */
     bool m_isActive; /**< active state of LED */
+    LedType m_ledType; /**< LED type */
     BrightnessChangeMode m_brightnessChangeMode; /**< brightness change mode */
     Direction m_direction; /**< direction of brightness change*/
 

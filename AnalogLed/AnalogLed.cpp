@@ -1,20 +1,24 @@
 // Function definitions for the AnalogLed class. 
 
 // @author Janette H. Griggs
-// @version 1.1 04/04/14
+// @version 1.2 04/05/14
 
 #include "AnalogLed.h"
 
-AnalogLed::AnalogLed(int ledPinNumber, int minBrightness, int maxBrightness) {
-  m_minBrightness = minBrightness;
-  m_maxBrightness = maxBrightness;
+AnalogLed::AnalogLed(int ledPinNumber, 
+                     int minBrightness, 
+                     int maxBrightness, 
+                     LedType ledType) {
+  m_ledType = ledType;
 
-  if (m_minBrightness < 0) {
-    m_minBrightness = 0;
+  if (m_ledType == COMMON_CATHODE) {
+    m_minBrightness = minBrightness;
+    m_maxBrightness = maxBrightness;
   } 
-
-  if (m_maxBrightness > 255) {
-    m_maxBrightness = 255;
+  
+  if (m_ledType == COMMON_ANODE) {
+    m_minBrightness = 255 - minBrightness;
+    m_maxBrightness = 255 - maxBrightness;
   }
 
   m_brightnessChangeMode = NONE;
@@ -26,6 +30,38 @@ AnalogLed::AnalogLed(int ledPinNumber, int minBrightness, int maxBrightness) {
   setToMinBrightness();
 }
 
+int AnalogLed::getLedPinNumber() const {
+  return m_ledPinNumber;
+}
+
+int AnalogLed::getMinBrightness() const {
+  return m_minBrightness;
+}
+
+int AnalogLed::getMaxBrightness() const {
+  return m_maxBrightness;
+}
+
+float AnalogLed::getCurrentBrightness() const {
+  return m_currentBrightness;
+}
+
+unsigned long AnalogLed::getActiveTimer() const {
+  return m_activeTimer;
+}
+
+bool AnalogLed::getIsActiveState() const {
+  return m_isActive;
+}
+
+LedType AnalogLed::getLedType() const {
+  return m_ledType;
+}
+
+BrightnessChangeMode AnalogLed::getBrightnessChangeMode() const {
+  return m_brightnessChangeMode;
+}
+
 void AnalogLed::setLedPinNumber(int ledPinNumber) {
   m_ledPinNumber = ledPinNumber;
 
@@ -34,18 +70,22 @@ void AnalogLed::setLedPinNumber(int ledPinNumber) {
 }
 
 void AnalogLed::setMinBrightness(int minBrightness) {
-  m_minBrightness = minBrightness;
-
-  if (m_minBrightness < 0) {
-    m_minBrightness = 0;
-  } 
+  if (m_ledType == COMMON_CATHODE) {
+    m_minBrightness = minBrightness;
+  }
+  
+  if (m_ledType == COMMON_ANODE) {
+    m_minBrightness = 255 - minBrightness;
+  }
 }
 
 void AnalogLed::setMaxBrightness(int maxBrightness) {
-  m_maxBrightness = maxBrightness;
-
-  if (m_maxBrightness > 255) {
-    m_maxBrightness = 255;
+  if (m_ledType == COMMON_CATHODE) {
+    m_maxBrightness = maxBrightness;
+  } 
+  
+  if (m_ledType == COMMON_ANODE) {
+    m_maxBrightness = 255 - maxBrightness;
   }
 }
 
@@ -62,17 +102,36 @@ void AnalogLed::showBlinkingLed(unsigned long deltaMillis,
   if (m_brightnessChangeMode != BLINK) {
     m_brightnessChangeMode = BLINK;
     setToMaxBrightness();
-    m_direction = NEGATIVE;
+
+    if (m_ledType == COMMON_CATHODE) {
+      m_direction = NEGATIVE;
+    }
+    
+    if (m_ledType == COMMON_ANODE) {
+      m_direction = POSITIVE;
+    } 
   } else {
     m_currentBrightness += calculateBrightnessChange(deltaMillis,
                                       blinkInterval);
     
-    if (m_currentBrightness >= m_maxBrightness) {
-      setToMaxBrightness();
-      m_direction = NEGATIVE;
-    } else if (m_currentBrightness <= m_minBrightness) {
-      setToMinBrightness();
-      m_direction = POSITIVE;
+    if (m_ledType == COMMON_CATHODE) {
+      if (m_currentBrightness >= m_maxBrightness) {
+        setToMaxBrightness();
+        m_direction = NEGATIVE;
+      } else if (m_currentBrightness <= m_minBrightness) {
+        setToMinBrightness();
+        m_direction = POSITIVE;
+      }
+    }
+    
+    if (m_ledType == COMMON_ANODE) {
+      if (m_currentBrightness <= m_maxBrightness) {
+        setToMaxBrightness();
+        m_direction = POSITIVE;
+      } else if (m_currentBrightness >= m_minBrightness) {
+        setToMinBrightness();
+        m_direction = NEGATIVE;
+      }
     }
   }
 }
@@ -84,13 +143,28 @@ void AnalogLed::showFadingInLed(unsigned long deltaMillis,
   if (m_brightnessChangeMode != FADE_IN) {
     m_brightnessChangeMode = FADE_IN;
     setToMinBrightness();
-    m_direction = POSITIVE;
+    
+    if (m_ledType == COMMON_CATHODE) {
+      m_direction = POSITIVE;
+    }
+    
+    if (m_ledType == COMMON_ANODE) {
+      m_direction = NEGATIVE;
+    }
   } else {
     m_currentBrightness += calculateBrightnessChange(deltaMillis,
                                       fadeInterval);
     
-    if (m_currentBrightness > m_maxBrightness) {
-      setToMinBrightness();
+    if (m_ledType == COMMON_CATHODE) {
+      if (m_currentBrightness > m_maxBrightness) {
+        setToMinBrightness();
+      }
+    }
+    
+    if (m_ledType == COMMON_ANODE) {
+      if (m_currentBrightness < m_maxBrightness) {
+        setToMinBrightness();
+      }
     }
 
     analogWrite(m_ledPinNumber, (int) m_currentBrightness);
@@ -104,13 +178,28 @@ void AnalogLed::showFadingOutLed(unsigned long deltaMillis,
   if (m_brightnessChangeMode != FADE_OUT) {
     m_brightnessChangeMode = FADE_OUT;
     setToMaxBrightness();
-    m_direction = NEGATIVE;
+    
+    if (m_ledType == COMMON_CATHODE) {
+      m_direction = NEGATIVE;
+    }
+    
+    if (m_ledType == COMMON_ANODE) {
+      m_direction = POSITIVE;
+    }
   } else {
     m_currentBrightness += calculateBrightnessChange(deltaMillis,
-                                      fadeInterval);
+                                      fadeInterval);  
 
-    if (m_currentBrightness < m_minBrightness) {
-      setToMaxBrightness();
+    if (m_ledType == COMMON_CATHODE) {
+      if (m_currentBrightness < m_minBrightness) {
+        setToMaxBrightness();
+      }
+    }
+    
+    if (m_ledType == COMMON_ANODE) {
+      if (m_currentBrightness > m_minBrightness) {
+        setToMaxBrightness();
+      }
     }
 
     analogWrite(m_ledPinNumber, (int) m_currentBrightness);
@@ -124,17 +213,36 @@ void AnalogLed::showFadingInOutLed(unsigned long deltaMillis,
   if (m_brightnessChangeMode != FADE_IN_OUT) {
     m_brightnessChangeMode = FADE_IN_OUT;
     setToMinBrightness();
-    m_direction = POSITIVE;
+
+    if (m_ledType == COMMON_CATHODE) {
+      m_direction = POSITIVE;
+    }
+    
+    if (m_ledType == COMMON_ANODE) {
+      m_direction = NEGATIVE;
+    }
   } else {
     m_currentBrightness += calculateBrightnessChange(deltaMillis,
                                       fadeInterval);
     
-    if (m_currentBrightness >= m_maxBrightness) {
-      m_currentBrightness = m_maxBrightness;
-      m_direction = NEGATIVE;
-    } else if (m_currentBrightness <= m_minBrightness) {
-      m_currentBrightness = m_minBrightness;
-      m_direction = POSITIVE;
+    if (m_ledType == COMMON_CATHODE) {
+      if (m_currentBrightness >= m_maxBrightness) {
+        m_currentBrightness = m_maxBrightness;
+        m_direction = NEGATIVE;
+      } else if (m_currentBrightness <= m_minBrightness) {
+        m_currentBrightness = m_minBrightness;
+        m_direction = POSITIVE;
+      }
+    }
+    
+    if (m_ledType == COMMON_ANODE) {
+      if (m_currentBrightness <= m_maxBrightness) {
+        m_currentBrightness = m_maxBrightness;
+        m_direction = POSITIVE;
+      } else if (m_currentBrightness >= m_minBrightness) {
+        m_currentBrightness = m_minBrightness;
+        m_direction = NEGATIVE;
+      }
     }
 
     analogWrite(m_ledPinNumber, (int) m_currentBrightness);
@@ -179,9 +287,17 @@ float AnalogLed::calculateBrightnessChange(unsigned long deltaMillis,
                                 unsigned long minToMaxBrightnessInterval) {
   float brightnessChange;
 
-  brightnessChange = (m_maxBrightness -  m_minBrightness) / 
-                     (float) minToMaxBrightnessInterval *
-                     deltaMillis * m_direction;
+  if (m_ledType == COMMON_CATHODE) {
+    brightnessChange = (m_maxBrightness -  m_minBrightness) / 
+                       (float) minToMaxBrightnessInterval *
+                       deltaMillis * m_direction;
+  }
+    
+  if (m_ledType == COMMON_ANODE) {
+    brightnessChange = (m_minBrightness -  m_maxBrightness) / 
+                       (float) minToMaxBrightnessInterval *
+                       deltaMillis * m_direction;  
+  }
 
   return brightnessChange;
 }

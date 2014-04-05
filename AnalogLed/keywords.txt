@@ -5,6 +5,7 @@ getMaxBrightness	KEYWORD2
 getCurrentBrightness	KEYWORD2
 getActiveTimer	KEYWORD2
 getIsActiveState	KEYWORD2
+getLedType	KEYWORD2
 getBrightnessChangeMode	KEYWORD2
 setLedPinNumber	KEYWORD2
 setMinBrightness	KEYWORD2
@@ -15,3 +16,13 @@ showFadingInLed	KEYWORD2
 showFadingOutLed	KEYWORD2
 showFadingInOutLed	KEYWORD2
 resetLed	KEYWORD2
+AnalogRGBLed	KEYWORD1
+setRGBColor	KEYWORD2
+showSteadyRGBLed	KEYWORD2
+showBlinkingRGBLed	KEYWORD2
+showFadingInRGBLed	KEYWORD2
+showFadingOutRGBLed	KEYWORD2
+showFadingInOutRGBLed	KEYWORD2
+resetRGBLED	KEYWORD2
+LedType	KEYWORD1
+BrightnessChangeMode	KEYWORD1
