@@ -9,7 +9,7 @@
  * loop.
  * 
  * @author Janette H. Griggs
- * @version 1.2 04/05/14
+ * @version 1.3 04/06/14
  */
 
 #ifndef AnalogLed_h
@@ -68,6 +68,12 @@ class AnalogLed {
      * @return The current calculated brightness value.
      */
     float getCurrentBrightness() const;
+
+    /**
+     * Returns the time (in ms) since the last brightness change.
+     * @return The brightness change timer.
+     */
+    unsigned long getBrightnessChangeTimer() const;
 
     /**
      * Returns the time (in ms) since the led was active. 
@@ -187,6 +193,8 @@ class AnalogLed {
     int m_minBrightness; /**< LED min brightness */
     int m_maxBrightness; /**< LED max brightness */
     float m_currentBrightness; /**< LED current brightness */
+    unsigned long m_brightnessChangeTimer; /**< time (ms) since last brightness
+                                       change */
     unsigned long m_activeTimer; /**< time (ms) since LED was active */
     bool m_isActive; /**< active state of LED */
     LedType m_ledType; /**< LED type */
