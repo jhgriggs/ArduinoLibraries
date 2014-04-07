@@ -23,6 +23,6 @@ showBlinkingRGBLed	KEYWORD2
 showFadingInRGBLed	KEYWORD2
 showFadingOutRGBLed	KEYWORD2
 showFadingInOutRGBLed	KEYWORD2
-resetRGBLED	KEYWORD2
+resetRGBLed	KEYWORD2
 LedType	KEYWORD1
 BrightnessChangeMode	KEYWORD1

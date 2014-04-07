@@ -118,8 +118,6 @@ void AnalogLed::showBlinkingLed(unsigned long deltaMillis,
     } 
   } else {
     m_brightnessChangeTimer += deltaMillis;
-    //m_currentBrightness += calculateBrightnessChange(deltaMillis,
-    //                                  blinkInterval);
     
     if (m_ledType == COMMON_CATHODE && 
         m_brightnessChangeTimer >= blinkInterval) {
