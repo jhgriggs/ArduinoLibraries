@@ -1,7 +1,7 @@
 // Function definitions for AnalogRGBLed class.
 
 // @author Janette H. Griggs
-// @version 1.1 04/05/14
+// @version 1.2 04/09/14
 
 #include "AnalogRGBLed.h"
 
@@ -18,6 +18,10 @@ AnalogRGBLed::AnalogRGBLed(
     m_blueLed(bluePinNumber, 0, blueBrightness, ledType) {
 }
    
+unsigned long AnalogRGBLed::getRGBActiveTimer() const {
+  return m_redLed.getActiveTimer();
+}
+
 void AnalogRGBLed::setRGBColor(int redBrightness,
                                int greenBrightness,
                                int blueBrightness) {

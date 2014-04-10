@@ -7,7 +7,7 @@
  * RGB LED.
  *
  * @author Janette H. Griggs
- * @version 1.0 04/05/14
+ * @version 1.2 04/09/14
  */
  
 #ifndef AnalogRGBLed_h
@@ -49,6 +49,12 @@ class AnalogRGBLed {
                  int blueBrightness,
                  LedType ledType);
     
+    /**
+     * Returns the time (in ms) since the LED was active.
+     * @return The active timer.
+     */
+    unsigned long getRGBActiveTimer() const;
+
     /**
      * Sets the color of the RGB LED.
      * @param redBrightness The brightness value for the red color,

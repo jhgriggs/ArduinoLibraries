@@ -9,7 +9,7 @@
  * loop.
  * 
  * @author Janette H. Griggs
- * @version 1.3 04/06/14
+ * @version 1.4 04/09/14
  */
 
 #ifndef AnalogLed_h

@@ -1,7 +1,7 @@
 // Function definitions for the AnalogLed class. 
 
 // @author Janette H. Griggs
-// @version 1.3 04/06/14
+// @version 1.4 04/09/14
 
 #include "AnalogLed.h"
 
@@ -168,15 +168,14 @@ void AnalogLed::showFadingInLed(unsigned long deltaMillis,
     m_currentBrightness += calculateBrightnessChange(deltaMillis,
                                       fadeInterval);
     
-    /*
     if (m_brightnessChangeTimer > fadeInterval) {
       setToMinBrightness();
       m_brightnessChangeTimer = 0L;
     } else {
       analogWrite(m_ledPinNumber, (int) m_currentBrightness);
     }
-    */
 
+    /*
     if (m_ledType == COMMON_CATHODE && 
         m_brightnessChangeTimer >= fadeInterval) {
       if (m_direction == POSITIVE) {
@@ -208,7 +207,8 @@ void AnalogLed::showFadingInLed(unsigned long deltaMillis,
                && m_direction == NEGATIVE) {
       analogWrite(m_ledPinNumber, (int) m_currentBrightness);
     }   
-  }
+    */
+  } 
 }
 
 void AnalogLed::showFadingOutLed(unsigned long deltaMillis,
@@ -232,15 +232,14 @@ void AnalogLed::showFadingOutLed(unsigned long deltaMillis,
     m_currentBrightness += calculateBrightnessChange(deltaMillis,
                                       fadeInterval);  
 
-    /*
     if (m_brightnessChangeTimer > fadeInterval) {
       setToMaxBrightness();
       m_brightnessChangeTimer = 0L;
     } else {
       analogWrite(m_ledPinNumber, (int) m_currentBrightness);
     }
-    */
 
+    /*
     if (m_ledType == COMMON_CATHODE && 
         m_brightnessChangeTimer >= fadeInterval) {
       if (m_direction == POSITIVE) {
@@ -272,6 +271,7 @@ void AnalogLed::showFadingOutLed(unsigned long deltaMillis,
                && m_direction == POSITIVE) {
       analogWrite(m_ledPinNumber, (int) m_currentBrightness);
     }
+    */
   }
 }
 

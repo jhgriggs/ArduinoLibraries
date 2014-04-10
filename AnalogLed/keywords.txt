@@ -17,6 +17,7 @@ showFadingOutLed	KEYWORD2
 showFadingInOutLed	KEYWORD2
 resetLed	KEYWORD2
 AnalogRGBLed	KEYWORD1
+getRGBActiveTimer	KEYWORD2
 setRGBColor	KEYWORD2
 showSteadyRGBLed	KEYWORD2
 showBlinkingRGBLed	KEYWORD2
